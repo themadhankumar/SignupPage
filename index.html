@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create your profile</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+    </script>
+
+    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+    </script>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        span {
+            color: red;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+        }
+
+        @font-face {
+          font-family: "Helvetica-400";
+          src: url("Helvetica-400.woff"),
+          url("HelveticaNeueBold.woff")
+        }
+
+        body {
+            background-color: #c2edff;
+            color: #032e41;
+
+            }
+
+        .container {
+            border: 5px solid #85daff;
+            padding: 40px;
+            background-color: #85daff;
+        }
+
+        label {
+            font-weight: medium;
+        }
+
+        td {
+            padding: 10px;
+            border: 2px solid ;
+        }
+
+        #details {
+            padding: 10px;
+        }
+
+        .button5 {border-radius: 50%;}
+
+        .vertical-center {
+          margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+    </style>
+    <script>
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function validateName(name) {
+            const re = /^[a-zA-Z]+$/;
+            return re.test(name)
+        }
+
+        function validateAge(age) {
+            return age >= 0 && age <= 150;
+        }
+
+        function validateMobile(mobile) {
+            mobile = mobile + "";
+            const re = /^[0-9]+$/;
+            let cond1 = re.test(mobile);
+            let cond2 = mobile.length == 10;
+            return cond1 && cond2;
+        }
+
+        function validate() {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var age = parseInt($("#age").val());
+            var mobile = parseInt($("#mobile").val());
+            var isValid = true;
+            if (!validateName(name)) {
+                isValid = false;
+                $("#name-msg").html("Name should only contain alphabets");
+            } else {
+                $("#name-msg").html("");
+            }
+            if (!validateEmail(email)) {
+                isValid = false;
+                $("#email-msg").html("Please check your email format");
+            } else {
+                $("#email-msg").html("");
+            }
+            if (!validateAge(age)) {
+                isValid = false;
+                $("#age-msg").html("Age should be between 0-150");
+            } else {
+                $("#age-msg").html("");
+            }
+            if (!validateMobile(mobile)) {
+                isValid = false;
+                $("#mobile-msg").html("Mobile should contain 10 digits");
+            } else {
+                $("#mobile-msg").html("");
+            }
+            return isValid;
+        }
+        function currentProPic(id) {
+            for (let i = 0; i < 5; i++) {
+                $("#image" + i).css('display', 'none');
+            }
+            $("#image" + id).css('display', 'block');
+        }
+
+        $(function () {
+            let current_pic = 0;
+            $("#submit").on('click', function (event) {
+                event.preventDefault();
+                if (validate()) {
+                    alert("Successfully registered!");
+                }
+            });
+            $("#next-btn").on('click', function (event) {
+                current_pic = (current_pic + 1) % 5;
+                currentProPic(current_pic);
+            });
+            $("#back-btn").on('click', function (event) {
+                current_pic = current_pic - 1;
+                if (current_pic == -1) {
+                    current_pic = 4;
+                }
+                currentProPic(current_pic);
+            });
+        })
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create your profile</h1>
+        <label>Profile picture</label>
+            <div class="row">
+
+            <div class="col col-3">
+              <button type="button" height=100px width=100px class="button button5 btn btn-success vertical-center" style="background-color: #007BFF; border-color: #c2edff; color: #c2edff;" id='back-btn'><<</button>
+            </div>
+
+            <div class="col-6">
+            <div class="d-flex justify-content-around">
+                    <img src="https://i.ibb.co/k322RKV/abs.jpg"
+                        id="image0" />
+                    <img src="https://i.ibb.co/GW4FFQb/abs1.jpg"
+                        style="display: none;" id="image1" />
+                    <img src="https://i.ibb.co/HGvSNdh/abs2.jpg"
+                        style="display: none;" id="image2" />
+                    <img src="https://i.ibb.co/BZmGZBV/abs3.jpg"
+                        style="display: none;" id="image3" />
+                    <img src="https://i.ibb.co/pj4YGCL/abs4.jpg"
+                        style="display: none;" id="image4" />
+                    </div>
+
+                    </div>
+                    <div class="col col-3">
+                      <button type="button" height=100px width=100px class="button button5 btn btn-success vertical-center" style="background-color: #007BFF; border-color: #c2edff; color: #c2edff;" id='next-btn'>>></button>
+
+                    </div>
+
+                    </div>
+        <form class="form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name" />
+                <span id="name-msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input class="form-control" type="number" id="age" name="age" placeholder="Enter your age" />
+                <span id="age-msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" placeholder="Enter your email" />
+                <span id="email-msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input class="form-control" type="number" id="mobile" name="mobile" placeholder="Enter your mobile" />
+                <span id="mobile-msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="dob">DOB</label>
+                <input class="form-control" type="date" id="dob" name="dob" placeholder="Enter your dob" />
+            </div>
+            <button id="submit" class="btn btn-primary">Create profile</button>
+        </form>
+    </div>
+</body>
+
+</html>
